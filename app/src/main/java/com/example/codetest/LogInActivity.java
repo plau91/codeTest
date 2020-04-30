@@ -19,10 +19,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.HashMap;
-import java.util.Map;
-
-public class MainActivity extends AppCompatActivity {
+public class LogInActivity extends AppCompatActivity {
 
     Button btnSignIn;
     TextView btnRegister;
@@ -35,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login);
 
         //STEP1: firebase setup
         // create a Firebase instance & reference
@@ -68,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, RegisterActivity.class));
+                startActivity(new Intent(LogInActivity.this, RegisterActivity.class));
             }
         });
 
@@ -78,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
         final String email = emailID.getText().toString();
         final String password = passwordID.getText().toString();
 
-        fAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
+        fAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(LogInActivity.this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 // if email & password is correct: login to home page
@@ -86,12 +83,12 @@ public class MainActivity extends AppCompatActivity {
 
                     FirebaseUser user = fAuth.getCurrentUser();
                     String s = "Welcome back " + user.getEmail();
-                    Toast.makeText(MainActivity.this, s, Toast.LENGTH_LONG).show();
-                    startActivity(new Intent(MainActivity.this, ProfileActivity.class));
+                    Toast.makeText(LogInActivity.this, s, Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(LogInActivity.this, MainActivity.class));
                 }
                 // if not correct: error message to re try
                 else {
-                    Toast.makeText(MainActivity.this, "Sign in failed.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LogInActivity.this, "Sign in failed.", Toast.LENGTH_SHORT).show();
                     // updateUI(null);
                 }
             }

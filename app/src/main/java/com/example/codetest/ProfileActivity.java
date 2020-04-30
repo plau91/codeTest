@@ -10,6 +10,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -33,7 +35,7 @@ public class ProfileActivity extends AppCompatActivity {
     private EditText profileFirst, profileLast, profileMajor;
     private Button btnUpdate, btnHome;
 
-    private String firstName, lastName, birthday, major;
+    private String firstName, lastName, major;
     private String currentUserId;
 
     @Override
@@ -70,30 +72,46 @@ public class ProfileActivity extends AppCompatActivity {
                 return;
             }
         });
+
     }
+
+
 
     private void profileInformation() {
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists() && dataSnapshot.getChildrenCount() > 0)
+                if(dataSnapshot.exists())
                 {
                     Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
-                    if(map.get("FirstName") != null)
+                    if (dataSnapshot.getChildrenCount() > 0)
+                    {
+                        if(map.get("FirstName") != null)
+                        {
+                            firstName = map.get("FirstName").toString();
+                            profileFirst.setText(firstName);
+                        }
+
+                        if(map.get("LastName") != null)
+                        {
+                            lastName = map.get("LastName").toString();
+                            profileLast.setText(lastName);
+                        }
+                        if(map.get("Major") != null)
+                        {
+                            major = map.get("Major").toString();
+                            profileMajor.setText(major);
+                        }
+                    }
+                    else if(dataSnapshot.getChildrenCount() == 0)
                     {
                         firstName = map.get("FirstName").toString();
-                        profileFirst.setText(firstName);
-                    }
-
-                    if(map.get("LastName") != null)
-                    {
                         lastName = map.get("LastName").toString();
-                        profileLast.setText(lastName);
-                    }
-                    if(map.get("Major") != null)
-                    {
                         major = map.get("Major").toString();
-                        profileMajor.setText(major);
+                        map.put("FirstName", firstName);
+                        map.put("LastName", lastName);
+                        map.put("Major", major);
+
                     }
                 }
             }
@@ -120,4 +138,6 @@ public class ProfileActivity extends AppCompatActivity {
         Toast.makeText(ProfileActivity.this, "Profile created", Toast.LENGTH_LONG).show();
 
     }
+
+
 }

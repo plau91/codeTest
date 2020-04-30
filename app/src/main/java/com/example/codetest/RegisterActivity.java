@@ -32,19 +32,13 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+        setContentView(R.layout.activity_main);
 
         fAuth = FirebaseAuth.getInstance();
         firebaseAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                /*if(user != null)
-                {
-                    startActivity(new Intent(RegisterActivity.this, MainActivity.class));
-                    finish();
-                    return;
-                }*/
             }
         };
 
@@ -73,10 +67,11 @@ public class RegisterActivity extends AppCompatActivity {
 
 
                             currentUserRef.updateChildren(userInfo);
-                            startActivity(new Intent(RegisterActivity.this, ProfileActivity.class));
                         }
                     }
                 });
+
+                startActivity(new Intent(RegisterActivity.this, ProfileActivity.class));
             }
         });
     }
