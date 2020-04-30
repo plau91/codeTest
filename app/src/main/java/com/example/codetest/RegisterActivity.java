@@ -67,6 +67,7 @@ public class RegisterActivity extends AppCompatActivity {
 
 
                             currentUserRef.updateChildren(userInfo);
+                            startActivity(new Intent(RegisterActivity.this, ProfileActivity.class));
                         }
                     }
                 });
