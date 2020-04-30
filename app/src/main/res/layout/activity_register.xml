@@ -38,15 +38,15 @@
         android:orientation="vertical"
         android:padding="10dp" >
 
-        <EditText
+       <!-- <EditText
             android:id="@+id/firstNameEnter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Enter first name"
             android:importantForAutofill="no"
-            android:inputType="text" />
-
+            android:inputType="text" />-->
+<!--
         <EditText
             android:id="@+id/lastNameEnter"
             android:layout_width="wrap_content"
@@ -63,7 +63,7 @@
             android:ems="10"
             android:hint="Enter major"
             android:importantForAutofill="no"
-            android:inputType="text" />
+            android:inputType="text" />-->
 
         <EditText
             android:id="@+id/emailEnter"

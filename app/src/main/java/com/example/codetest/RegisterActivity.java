@@ -23,7 +23,7 @@ import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private EditText regFirstName, regLastName, regMajor, regEmail, regPassword;
+    private EditText regEmail, regPassword;
     private Button registerBtn;
 
     private FirebaseAuth fAuth;
@@ -48,9 +48,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
         };
 
-        regFirstName = findViewById(R.id.firstNameEnter);
-        regLastName = findViewById(R.id.lastNameEnter);
-        regMajor = findViewById(R.id.majorEnter);
+
         regEmail = findViewById(R.id.emailEnter);
         regPassword = findViewById(R.id.passwordEnter);
         registerBtn = findViewById(R.id.registerBTN);
@@ -70,14 +68,12 @@ public class RegisterActivity extends AppCompatActivity {
                             String currentUserId = fAuth.getCurrentUser().getUid();
                             DatabaseReference currentUserRef = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId);
                             Map userInfo = new HashMap<>();
-                            userInfo.put("FirstName", regFirstName);
-                            userInfo.put("LastName", regLastName);
-                            userInfo.put("Major", regMajor);
                             userInfo.put("Email", regEmail);
                             userInfo.put("Password", regPassword);
 
 
                             currentUserRef.updateChildren(userInfo);
+                            startActivity(new Intent(RegisterActivity.this, ProfileActivity.class));
                         }
                     }
                 });

@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         //STEP 2:  setup of login/password gui ojects
         // grab objects for email and password EditTexts
         emailID = findViewById(R.id.emailEnter);
-        passwordID = findViewById(R.id.majorEnter);
+        passwordID = findViewById(R.id.passwordEnter);
         btnSignIn = findViewById(R.id.signInBTN);
         btnRegister = findViewById(R.id.registerBTN);
 
