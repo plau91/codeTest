@@ -75,25 +75,28 @@ public class LogInActivity extends AppCompatActivity {
         final String email = emailID.getText().toString();
         final String password = passwordID.getText().toString();
 
-        fAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(LogInActivity.this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                // if email & password is correct: login to home page
-                if(task.isSuccessful()) {
 
-                    FirebaseUser user = fAuth.getCurrentUser();
-                    String s = "Welcome back " + user.getEmail();
-                    Toast.makeText(LogInActivity.this, s, Toast.LENGTH_LONG).show();
-                    startActivity(new Intent(LogInActivity.this, MainActivity.class));
+
+            fAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(LogInActivity.this, new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    // if email & password is correct: login to home page
+                    if(task.isSuccessful()) {
+
+                        FirebaseUser user = fAuth.getCurrentUser();
+                        String s = "Welcome back " + user.getEmail();
+                        Toast.makeText(LogInActivity.this, s, Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(LogInActivity.this, MainActivity.class));
+                    }
+                    // if not correct: error message to re try
+                    else {
+                        Toast.makeText(LogInActivity.this, "Sign in failed.", Toast.LENGTH_SHORT).show();
+                        // updateUI(null);
+                    }
                 }
-                // if not correct: error message to re try
-                else {
-                    Toast.makeText(LogInActivity.this, "Sign in failed.", Toast.LENGTH_SHORT).show();
-                    // updateUI(null);
-                }
-            }
-        });
-    }
+            });
+        }
+
 
     @Override
     protected void onStart() {
